@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        Refresh.setBackgroundDrawable(null)
 
         loadData()
         SeekBarListen()
@@ -88,6 +87,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             progress_circular.apply {
                 setProgressWithAnimation(currentSteps.toFloat())
             }
+
+            progress_circular.refreshDrawableState()
+            tv_stepsTaken.refreshDrawableState()
         }
     }
 
@@ -122,12 +124,5 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         seekBarProgress = sharedPreferences.getInt("slide",0)
         slider.progress = seekBarProgress
         tv_totalMax.text = "/" + seekBarProgress.toString()
-    }
-
-    fun refresh() {
-        finish()
-        overridePendingTransition(0, 0)
-        startActivity(intent)
-        overridePendingTransition(0, 0)
     }
 }
